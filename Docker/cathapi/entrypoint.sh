@@ -91,9 +91,10 @@ except:
 END
 
 # create a normal user to play with the API
->&2 echo "Create user for the API"
+>&2 echo "Create user for the API & Token"
 python3 manage.py shell << END
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 try:
     User.objects.get(username='sib_ws5')
 except User.DoesNotExist:
@@ -101,6 +102,7 @@ except User.DoesNotExist:
     user.is_superuser=False
     user.is_staff=False
     user.save()
+    Token.objects.create(user=user, key='d76afaba0d07F19a9ad66bDb8e71024ce6f9a81f')
 except Exception as dexc:
     if str(dexc) == 'UNIQUE constraint failed: auth_user.username':
         pass
