@@ -1,0 +1,27 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: python:3.7
+  before_script:
+    - apt-get update && apt-get install -y ncbi-blast+ mafft
+    - pip install -r requirements.txt
+  script:
+    - pytest --cov-report=xml --cov=cathapi --cov=frontend --cov=select_template_api frontend/tests.py select_template_api/tests.py
+    - coverage report -m
+  tags:
+    - docker
+
+deploy:
+  stage: deploy
+  script:
+    - cd Docker
+    - cp ${ENV_FILE} .env
+    - docker-compose build
+    - docker-compose up -d
+  environment:
+    name: $CI_COMMIT_BRANCH
+  tags:
+    - production
