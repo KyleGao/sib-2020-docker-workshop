@@ -90,4 +90,22 @@ except:
     raise
 END
 
+# create a normal user to play with the API
+>&2 echo "Create user for the API"
+python3 manage.py shell << END
+from django.contrib.auth.models import User
+try:
+    User.objects.get(username='sib_ws5')
+except User.DoesNotExist:
+    user = User.objects.create_user('sib_ws5', password='s1bday5ZOZO')
+    user.is_superuser=False
+    user.is_staff=False
+    user.save()
+except Exception as dexc:
+    if str(dexc) == 'UNIQUE constraint failed: auth_user.username':
+        pass
+except:
+    raise
+END
+
 exec "$@"
