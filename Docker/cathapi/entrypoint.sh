@@ -96,9 +96,9 @@ python3 manage.py shell << END
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 try:
-    User.objects.get(username='sib_ws5')
+    User.objects.get(username='sibdays2020@theb-si.de')
 except User.DoesNotExist:
-    user = User.objects.create_user('sib_ws5', password='s1bday5ZOZO')
+    user = User.objects.create_user('sibdays2020@theb-si.de', password='s1bday5ZOZO')
     user.is_superuser=False
     user.is_staff=False
     user.save()
