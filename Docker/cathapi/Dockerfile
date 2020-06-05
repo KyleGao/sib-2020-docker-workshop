@@ -35,7 +35,7 @@ ONBUILD RUN apt-get update && \
             apt-get install -y --no-install-recommends \
             git && \
             /bin/rm -rf /var/lib/apt/lists/* && \
-            /usr/bin/git clone https://github.com/CATH-SWISSMODEL/cathsm-server.git \
+            /usr/bin/git clone https://git.scicore.unibas.ch/bienert/cathsm-server-sibdays2020ed.git \
                                /tmp/cathsm-server.git && \
             if test -z "$CATHSMAPI_GITTAG"; then \
               cd /tmp/cathsm-server.git/cathapi && \
